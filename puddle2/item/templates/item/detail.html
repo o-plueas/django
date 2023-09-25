@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+ {%block title %} Detail Page {% endblock %}
+
+
+ {% block content %}
+    <div class="grid grid-cols-5 gap-6">
+
+        <div class="cols-span-3">
+            <img src="{{ item.image.url}}"  class="rounded-t-xl" alt="">
+        </div>
+
+        <div class="bg-white rounded-b-xl p-6 cols-span-2">
+            <h1 class="text-2xl text-black">{{item.name}}</h1>
+
+            <p class="text-gray-500"><strong>Price: </strong>{{item.price}}</p>
+            <p class="text-gray-500"><strong>Seller: </strong>{{item.created_by}}</p>
+
+            {% if item.description %}
+
+                <p class="mb-8">{{item.description}}</p>
+
+            {% endif %}
+
+
+            {% if request.user == item.created_by %}
+
+            <div class="mt-4 p-6 rounded-t-xl">
+                <div id="add_to_cart" num="{{item.id}}"  class="text-white text-2xl bg-gray-400 py-4 px-6 mt-4 my-6 rounded-xl">Add to Cart</div>
+
+                <a  class="text-white text-2xl bg-gray-400 py-4 px-6 mt-4 my-6 rounded-xl" href="{% url 'item:edit' item.id %}">Edit</a>
+                <a  class="text-white text-2xl bg-red-700 py-4 px-6 mt-4 my-6 rounded-xl" href="{% url 'item:delete' item.id %}">Delete</a>
+                {% else %}
+                <a  class="text-white text-2xl bg-teal-400 py-4 px-6 mt-6 my-6 rounded-xl" href="{% url 'conversation:new' item.id %}">Conversation</a>
+    
+            </div>
+
+           
+
+            {% endif %}
+
+           
+        </div>
+
+    </div>
+
+
+<script>
+
+    let addToCart = document.getElementById('add_to_cart')
+    let num = addToCart.getAttribute("num")
+    console.log(num)
+
+    let url= `127.0.0.1:8000/add_to_cart/${num}/`
+    console.log(url)
+    addToCart.addEventListener('click', ()=>{
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 2000){
+                addToCart.innerHTML = 'Added'
+            }else{
+                console.log('hey')
+            }
+        }
+        xhr.send()
+        console.log('hey')
+
+
+
+    })
+</script>
+
+
+
+
+
+ {% endblock%}
+
+
+
+
+
+
+
+
+
+
