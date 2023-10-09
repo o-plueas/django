@@ -24,17 +24,25 @@
 
             {% if request.user == item.created_by %}
 
-            <div class="mt-4 p-6 rounded-t-xl">
-                <div id="add_to_cart" num="{{item.id}}"  class="text-white text-2xl bg-gray-400 py-4 px-6 mt-4 my-6 rounded-xl">Add to Cart</div>
+            <div class="mt-4 p-6 rounded-t-xl w-full">
 
-                <a  class="text-white text-2xl bg-gray-400 py-4 px-6 mt-4 my-6 rounded-xl" href="{% url 'item:edit' item.id %}">Edit</a>
-                <a  class="text-white text-2xl bg-red-700 py-4 px-6 mt-4 my-6 rounded-xl" href="{% url 'item:delete' item.id %}">Delete</a>
+                <a  class="text-white inline-block text-2xl bg-pink-400 py-4 px-6 mb-1 my-6 rounded-xl" href="{% url 'item:edit' item.id %}">Edit</a>
+                <a  class="text-white inline-block text-2xl bg-red-700 py-4 px-6 mt-1 my-6 rounded-xl" href="{% url 'item:delete' item.id %}">Delete</a>
                 {% else %}
                 <a  class="text-white text-2xl bg-teal-400 py-4 px-6 mt-6 my-6 rounded-xl" href="{% url 'conversation:new' item.id %}">Conversation</a>
+                <a 
+                    href="#" 
+                    class="mt-6 inline-block px-1 py-1 rounded-xl bg-pink-500 text-white hover:bg-pink-700"
+                    hx-get="{% url 'add_to_cart' item.id %}"
+                    hx-target="#menu-cart-button"
+                    hx-swap="outerHTML"
+                >
+                    Add to cart
+                </a>
     
             </div>
-
            
+
 
             {% endif %}
 
@@ -42,35 +50,6 @@
         </div>
 
     </div>
-
-
-<script>
-
-    let addToCart = document.getElementById('add_to_cart')
-    let num = addToCart.getAttribute("num")
-    console.log(num)
-
-    let url= `127.0.0.1:8000/add_to_cart/${num}/`
-    console.log(url)
-    addToCart.addEventListener('click', ()=>{
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function(){
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 2000){
-                addToCart.innerHTML = 'Added'
-            }else{
-                console.log('hey')
-            }
-        }
-        xhr.send()
-        console.log('hey')
-
-
-
-    })
-</script>
-
 
 
 

@@ -10,3 +10,11 @@ class ConversationMessageForm(forms.ModelForm):
                 'class': 'w-full py-4 px-6 rounded-xl border'
             })
         }
+
+
+
+
+
+
+
+        

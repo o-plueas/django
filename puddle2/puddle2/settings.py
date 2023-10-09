@@ -27,9 +27,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+SESSION_COOKIE_AGE = 86400
+CART_SESSION_ID = 'cart'
+
+
+
+STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51M97VKHEQDAT4s4Qn29FHxtIfU89252rfr41rrmkThHMj1Kndhu8Dkto1zrjK1YyY7grOFi6a2HrFBTTxTd6Xvpg00Pz6EVyf3'
+
+STRIPE_API_KEY_HIDDE = 'sk_test_51M97VKHEQDAT4s4QtzIYAZxTATA8bmd2q2p6MEBoIeUon1jcslCffHbYfEfGWVwTjbFkrFhy8OYJWFrNcqP8CPi300thXwBPj0'
 
 
 # Application definition
@@ -44,7 +54,10 @@ INSTALLED_APPS = [
     'core',
     'item',
     'dashboard',
-    'conversation'
+    'conversation',
+    'cart',
+    'order'
+    
 ]
 
 MIDDLEWARE = [
@@ -70,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart'
             ],
         },
     },
